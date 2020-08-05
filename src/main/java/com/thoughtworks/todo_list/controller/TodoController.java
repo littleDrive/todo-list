@@ -14,6 +14,7 @@ import static java.util.Arrays.asList;
 public class TodoController {
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Todo> getTodos() {
 
         return new ArrayList<>(asList(new Todo(1, "text1", true), new Todo(2, "text2", false)));
