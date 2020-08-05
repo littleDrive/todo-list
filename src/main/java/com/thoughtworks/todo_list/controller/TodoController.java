@@ -1,9 +1,8 @@
 package com.thoughtworks.todo_list.controller;
 
 import com.thoughtworks.todo_list.model.Todo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,13 @@ public class TodoController {
 
         return new ArrayList<>(asList(new Todo(1, "text1", true), new Todo(2, "text2", false)));
 
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo insertTodo(@RequestBody Todo todo) {
+
+        return todo;
     }
 
 
