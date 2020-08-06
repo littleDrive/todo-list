@@ -19,4 +19,8 @@ public class TodoService {
     public Todo insertTodo(Todo todo) {
         return  todoRepository.save(todo);
     }
+
+    public Todo updatetTodo(Todo todo) {
+        return null;
+    }
 }
