@@ -45,7 +45,7 @@ public class TodoServiceTest {
         when(todoRepository.save(todo)).thenReturn(todo);
 
         //when
-        Todo savedTodo = todoService.insertTodo();
+        Todo savedTodo = todoService.insertTodo(todo);
 
         //then
         assertNotNull(savedTodo);

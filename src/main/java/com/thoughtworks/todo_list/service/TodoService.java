@@ -16,7 +16,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Todo insertTodo() {
-        return null;
+    public Todo insertTodo(Todo todo) {
+        return  todoRepository.save(todo);
     }
 }
