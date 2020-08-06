@@ -13,6 +13,6 @@ public class TodoService {
 
     public List<Todo> getTodos() {
 
-        return null;
+        return todoRepository.findAll();
     }
 }
