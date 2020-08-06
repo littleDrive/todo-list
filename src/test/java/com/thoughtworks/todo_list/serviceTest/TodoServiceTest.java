@@ -4,6 +4,7 @@ import com.thoughtworks.todo_list.exception.InvalidIdException;
 import com.thoughtworks.todo_list.model.Todo;
 import com.thoughtworks.todo_list.repository.TodoRepository;
 import com.thoughtworks.todo_list.service.TodoService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -73,6 +74,22 @@ public class TodoServiceTest {
         assertEquals(1, hasupdatedTodo.getId());
         assertEquals("oocl", hasupdatedTodo.getContent());
         assertEquals(false, hasupdatedTodo.getStatus());
+    }
+
+    @Test
+    void should_throws_invalid_id_exception_when_update_todo_given_invalid_id() {
+        //given
+        Integer id = 2;
+        Todo todo = new Todo(1, "oocl", false);
+        Todo shouldUpdatedtodo = new Todo(1, "test", true);
+        when(todoRepository.findById(id)).thenReturn(Optional.of(shouldUpdatedtodo));
+        when(todoRepository.save(shouldUpdatedtodo)).thenReturn(todo);
+
+        //when
+        assertThrows(NullPointerException.class, () -> todoService.updatetTodo(id, todo));
+
+
+        //then
     }
 
 
