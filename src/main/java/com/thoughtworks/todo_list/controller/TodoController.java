@@ -1,42 +1,47 @@
 package com.thoughtworks.todo_list.controller;
 
+import com.thoughtworks.todo_list.RequestTodo.RequestTodo;
+import com.thoughtworks.todo_list.mapper.RequestMapper;
 import com.thoughtworks.todo_list.model.Todo;
 import com.thoughtworks.todo_list.service.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 
 @RestController
 @RequestMapping("/todos")
+@CrossOrigin(origins = "*")
 public class TodoController {
 
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
+
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Todo> getTodos() {
+    public List<RequestTodo> getTodos() {
 
-        return todoService.getTodos();
+        return RequestMapper.changeTodosToRequestTodos(todoService.getTodos());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo insertTodo(@RequestBody Todo todo) {
+    public RequestTodo insertTodo(@RequestBody RequestTodo requestTodo) {
 
-        return todoService.insertTodo(todo);
+        Todo todo =  RequestMapper.changeRequestTodoToTodo(requestTodo);
+        return RequestMapper.changeTodoToRequestTodo(todoService.insertTodo(todo));
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Todo updateTodo(@RequestBody Todo todo, @PathVariable Integer id) {
+    public RequestTodo updateTodo(@RequestBody RequestTodo requestTodo, @PathVariable Integer id) {
 
-        return todoService.updatetTodo(id, todo);
+        Todo todo =  RequestMapper.changeRequestTodoToTodo(requestTodo);
+        return RequestMapper.changeTodoToRequestTodo(todoService.updatetTodo(id,todo));
     }
 
     @DeleteMapping("/{id}")

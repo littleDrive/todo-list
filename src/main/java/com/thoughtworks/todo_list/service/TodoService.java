@@ -3,7 +3,6 @@ package com.thoughtworks.todo_list.service;
 import com.thoughtworks.todo_list.exception.InvalidIdException;
 import com.thoughtworks.todo_list.model.Todo;
 import com.thoughtworks.todo_list.repository.TodoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
+
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
 
     public List<Todo> getTodos() {
 
