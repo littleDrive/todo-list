@@ -24,6 +24,7 @@ public class TodoService {
     public Todo updatetTodo(Integer id, Todo todo) throws RuntimeException {
 
         Todo shouldUpdateTodo = todoRepository.findById(id).orElse(null);
+
         if (shouldUpdateTodo == null) {
             throw new InvalidIdException();
         }

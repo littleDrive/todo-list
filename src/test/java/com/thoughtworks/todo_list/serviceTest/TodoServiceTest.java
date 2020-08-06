@@ -82,11 +82,11 @@ public class TodoServiceTest {
         Integer id = 2;
         Todo todo = new Todo(1, "oocl", false);
         Todo shouldUpdatedtodo = new Todo(1, "test", true);
-        when(todoRepository.findById(id)).thenReturn(Optional.of(shouldUpdatedtodo));
+        when(todoRepository.findById(id)).thenReturn(Optional.empty());
         when(todoRepository.save(shouldUpdatedtodo)).thenReturn(todo);
 
         //when
-        assertThrows(NullPointerException.class, () -> todoService.updatetTodo(id, todo));
+        assertThrows(InvalidIdException.class, () -> todoService.updatetTodo(id, todo));
 
 
         //then
