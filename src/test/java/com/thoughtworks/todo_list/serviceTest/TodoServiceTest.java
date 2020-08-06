@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,6 +56,27 @@ public class TodoServiceTest {
     @Test
     void should_return_todo_when_update_todo_given_todo_and_id() {
         Integer id = 1;
+        Todo todo = new Todo(1, "oocl", false);
+        Todo shouldUpdatedtodo = new Todo(1, "test", true);
+
+        //given
+        when(todoRepository.findById(id)).thenReturn(Optional.of(shouldUpdatedtodo));
+        when(todoRepository.save(shouldUpdatedtodo)).thenReturn(todo);
+
+        //when
+
+        Todo hasupdatedTodo = todoService.updatetTodo(id, todo);
+
+        //then
+        assertNotNull(hasupdatedTodo);
+        assertEquals(1, hasupdatedTodo.getId());
+        assertEquals("oocl", hasupdatedTodo.getContent());
+        assertEquals(false, hasupdatedTodo.getStatus());
+    }
+
+    @Test
+    void should_throws_exception_when_update_todo_given_todo_and_invalid_id() {
+        Integer id = 2;
         Todo todo = new Todo(1, "test", true);
         //given
         when(todoRepository.save(todo)).thenReturn(todo);
