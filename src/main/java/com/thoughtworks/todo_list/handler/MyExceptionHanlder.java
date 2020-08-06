@@ -14,7 +14,7 @@ public class MyExceptionHanlder {
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String todoNotFound() {
-        return "can not update todo, because can not find the same id in database ";
+        return InvalidIdException.EXCEPTION_MASSAGE;
     }
 
 }
