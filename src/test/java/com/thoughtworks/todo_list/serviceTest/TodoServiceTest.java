@@ -13,6 +13,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -35,5 +36,19 @@ public class TodoServiceTest {
 
         //then
         assertEquals(2, todos.size());
+    }
+
+    @Test
+    void should_return_todo_when_insert_todo_given_todo() {
+        Todo todo = new Todo(1, "test", true);
+        //given
+        when(todoRepository.save(todo)).thenReturn(todo);
+
+        //when
+        Todo savedTodo = todoService.insertTodo();
+
+        //then
+        assertNotNull(savedTodo);
+        assertEquals(1, savedTodo.getId());
     }
 }

@@ -15,4 +15,8 @@ public class TodoService {
 
         return todoRepository.findAll();
     }
+
+    public Todo insertTodo() {
+        return null;
+    }
 }
