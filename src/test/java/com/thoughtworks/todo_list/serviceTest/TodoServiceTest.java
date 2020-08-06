@@ -1,5 +1,6 @@
 package com.thoughtworks.todo_list.serviceTest;
 
+import com.thoughtworks.todo_list.exception.InvalidIdException;
 import com.thoughtworks.todo_list.model.Todo;
 import com.thoughtworks.todo_list.repository.TodoRepository;
 import com.thoughtworks.todo_list.service.TodoService;
@@ -13,8 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -41,8 +41,8 @@ public class TodoServiceTest {
 
     @Test
     void should_return_todo_when_insert_todo_given_todo() {
-        Todo todo = new Todo(1, "test", true);
         //given
+        Todo todo = new Todo(1, "test", true);
         when(todoRepository.save(todo)).thenReturn(todo);
 
         //when
@@ -55,11 +55,12 @@ public class TodoServiceTest {
 
     @Test
     void should_return_todo_when_update_todo_given_todo_and_id() {
+
+
+        //given
         Integer id = 1;
         Todo todo = new Todo(1, "oocl", false);
         Todo shouldUpdatedtodo = new Todo(1, "test", true);
-
-        //given
         when(todoRepository.findById(id)).thenReturn(Optional.of(shouldUpdatedtodo));
         when(todoRepository.save(shouldUpdatedtodo)).thenReturn(todo);
 
@@ -74,20 +75,5 @@ public class TodoServiceTest {
         assertEquals(false, hasupdatedTodo.getStatus());
     }
 
-    @Test
-    void should_throws_exception_when_update_todo_given_todo_and_invalid_id() {
-        Integer id = 2;
-        Todo todo = new Todo(1, "test", true);
-        //given
-        when(todoRepository.save(todo)).thenReturn(todo);
 
-        //when
-        Todo updatedTodo = todoService.updatetTodo(id, todo);
-
-        //then
-        assertNotNull(updatedTodo);
-        assertEquals(1, updatedTodo.getId());
-        assertEquals("test", updatedTodo.getContent());
-        assertEquals(true, updatedTodo.getStatus());
-    }
 }
