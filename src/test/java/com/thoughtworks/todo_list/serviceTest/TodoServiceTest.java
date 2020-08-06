@@ -54,12 +54,13 @@ public class TodoServiceTest {
 
     @Test
     void should_return_todo_when_update_todo_given_todo_and_id() {
+        Integer id = 1;
         Todo todo = new Todo(1, "test", true);
         //given
         when(todoRepository.save(todo)).thenReturn(todo);
 
         //when
-        Todo updatedTodo = todoService.updatetTodo(todo);
+        Todo updatedTodo = todoService.updatetTodo(id, todo);
 
         //then
         assertNotNull(updatedTodo);

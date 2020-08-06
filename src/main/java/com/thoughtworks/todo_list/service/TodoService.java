@@ -20,7 +20,7 @@ public class TodoService {
         return  todoRepository.save(todo);
     }
 
-    public Todo updatetTodo(Todo todo) {
-        return null;
+    public Todo updatetTodo(Integer id, Todo todo) {
+        return todo;
     }
 }
