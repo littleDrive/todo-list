@@ -1,6 +1,8 @@
 package com.thoughtworks.todo_list.controller;
 
 import com.thoughtworks.todo_list.model.Todo;
+import com.thoughtworks.todo_list.service.TodoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,32 +15,34 @@ import static java.util.Arrays.asList;
 @RequestMapping("/todos")
 public class TodoController {
 
+    @Autowired
+    private TodoService todoService;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Todo> getTodos() {
 
-        return new ArrayList<>(asList(new Todo(1, "text1", true), new Todo(2, "text2", false)));
-
+        return todoService.getTodos();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Todo insertTodo(@RequestBody Todo todo) {
 
-        return todo;
+        return todoService.insertTodo(todo);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Todo updateTodo(@RequestBody Todo todo, @PathVariable Integer id) {
 
-        return todo;
+        return todoService.updatetTodo(id, todo);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteTodo(@PathVariable Integer id) {
-
+        todoService.deleteById(id);
     }
 
 
