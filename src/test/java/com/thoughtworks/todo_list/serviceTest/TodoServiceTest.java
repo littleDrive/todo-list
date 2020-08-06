@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 public class TodoServiceTest {
@@ -87,10 +87,17 @@ public class TodoServiceTest {
 
         //when
         assertThrows(InvalidIdException.class, () -> todoService.updatetTodo(id, todo));
-
-
         //then
     }
 
+    @Test
+    void should_delete_todo_when_delete_todo_given_id() {
+        //given
+        Integer id = 1;
+        //when
+        todoService.deleteById(id);
+        //then
+        verify(todoRepository,times(1)).deleteById(1);
 
+    }
 }

@@ -32,4 +32,8 @@ public class TodoService {
         shouldUpdateTodo.setStatus(todo.getStatus());
         return todoRepository.save(shouldUpdateTodo);
     }
+
+    public void deleteById(Integer id) {
+        todoRepository.deleteById(id);
+    }
 }
